@@ -1,0 +1,196 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+
+<div class="content animate-panel">
+    <div class="row">
+        <div class="col-lg-12 text-center m-t-md">
+            <h2>
+                Welcome to Admin Panel
+            </h2>
+
+            <p>
+                @*Special <strong>Admin Theme</strong> for small, medium and large webapp with very clean and aesthetic style and feel.*@
+            </p>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="hpanel">
+                <div class="panel-body text-center h-200">
+                    <i class="pe-7s-graph1 fa-4x"></i>
+
+                    <h1 class="m-xs" id="totaluser">Loading..</h1>
+
+                    <h3 class="font-extra-bold no-margins text-success">
+                         USERS
+                    </h3>
+                    <small>This Record Contens all USERS </small>
+                </div>
+                <div class="panel-footer">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="hpanel">
+                <div class="panel-body text-center h-200">
+                    <i class="pe-7s-graph1 fa-4x"></i>
+
+                    <h1 class="m-xs" id="totalDoctors">Loading..</h1>
+
+                    <h3 class="font-extra-bold no-margins text-success">
+                         DOCTORS
+                    </h3>
+                    <small>This Record Contens all DOCTORS </small>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="hpanel">
+                <div class="panel-body text-center h-200">
+                    <i class="pe-7s-graph1 fa-4x"></i>
+
+                    <h1 class="m-xs" id="totalPatients">Loading..</h1>
+
+                    <h3 class="font-extra-bold no-margins text-success">
+                         PATIENTS
+                    </h3>
+                    <small>This Record Contens all PATIENTS</small>
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>       
+        <div class="col-lg-3">
+            <div class="hpanel stats">
+                <div class="panel-body h-200">
+                    <div class="stats-title pull-left">
+                        <h4>Today income</h4>
+                    </div>
+                    <div class="stats-icon pull-right">
+                        <i class="pe-7s-cash fa-4x"></i>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="flot-chart">
+                        <div class="flot-chart-content" id="flot-income-chart"></div>
+                    </div>
+                    <div class="m-t-xs">
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <small class="stat-label">Today</small>
+                                <h4>$230,00 </h4>
+                            </div>
+                            <div class="col-xs-7">
+                                <small class="stat-label">Last week</small>
+                                <h4>$7 980,60 <i class="fa fa-level-up text-success"></i></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/flot/js")
+
+    <script type="text/javascript">
+        $(function()
+        {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("GetAllCount", "DashBoard")",              
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",         
+            success: function (Response){
+                console.log(Response);
+                // totaluser
+                document.getElementById("totaluser").innerHTML = Response.TotalUsers;
+                document.getElementById("totalDoctors").innerHTML = Response.TotalDoctor;
+                document.getElementById("totalPatients").innerHTML = Response.TotalPatient;
+            },
+            error: function (e) {
+                alert("Fail");
+            }
+        });
+
+        }
+        
+        );
+
+
+            $(function () {
+
+                /**
+                 * Flot charts data and options
+                 */
+                var data1 = [ [0, 55], [1, 48], [2, 40], [3, 36], [4, 40], [5, 60], [6, 50], [7, 51] ];
+                var data2 = [ [0, 56], [1, 49], [2, 41], [3, 38], [4, 46], [5, 67], [6, 57], [7, 59] ];
+
+                var chartUsersOptions = {
+                    series: {
+                        splines: {
+                            show: true,
+                            tension: 0.4,
+                            lineWidth: 1,
+                            fill: 0.4
+                        },
+                    },
+                    grid: {
+                        tickColor: "#f0f0f0",
+                        borderWidth: 1,
+                        borderColor: 'f0f0f0',
+                        color: '#6a6c6f'
+                    },
+                    colors: [ "#62cb31", "#efefef"],
+                };
+
+                $.plot($("#flot-line-chart"), [data1, data2], chartUsersOptions);
+
+                /**
+                 * Flot charts 2 data and options
+                 */
+                var chartIncomeData = [
+                    {
+                        label: "line",
+                        data: [ [1, 10], [2, 26], [3, 16], [4, 36], [5, 32], [6, 51] ]
+                    }
+                ];
+
+                var chartIncomeOptions = {
+                    series: {
+                        lines: {
+                            show: true,
+                            lineWidth: 0,
+                            fill: true,
+                            fillColor: "#64cc34"
+
+                        }
+                    },
+                    colors: ["#62cb31"],
+                    grid: {
+                        show: false
+                    },
+                    legend: {
+                        show: false
+                    }
+                };
+
+                $.plot($("#flot-income-chart"), chartIncomeData, chartIncomeOptions);
+
+
+        });
+    </script>
+}

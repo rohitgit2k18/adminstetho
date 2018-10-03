@@ -1,0 +1,37 @@
+a:hover , a:focus{text-decoration: none;}
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus{outline: 0px auto -webkit-focus-ring-color;outline-offset: 0px;}
+.content_wrapper{margin-left: 250px;}
+.pro_img{display: inline-block;}
+.pro_info{display: inline-block; vertical-align: middle;}
+.pro_info h3{margin: 0px; font-size: 16px;}
+.pro_info span{margin-bottom: 3px; color: #cacaca;}
+.pro_img img{width: 50px; height: 50px; border-radius: 50%; margin-right: 15px;}
+.content_header{background-color: #EDEDED; overflow: hidden;padding: 15px 20px;}
+.content_header ul{margin: 0px; padding: 0px; display: inline-block; float: right;}
+.content_header ul li{display: inline; padding: 0 10px; position: relative;}
+.content_header ul li i{vertical-align: middle; font-size: 18px;}
+.user_info img{width: 32px; height: 32px; border-radius: 50%; margin-right: 5px;}
+.user_info span{margin-right: 5px; color: #515356; position: relative !important; vertical-align: middle;}
+.user_info i{color: #515356; vertical-align: middle;}
+.notify {position: absolute;background-color: #00bcd4;color: #fff;width: 14px;height: 15px;border-radius: 50%;font-size: 12px;text-align: center;right: 4px;top: -6px;}
+
+
+
+
+/*LOGIN PAGE CSS*/
+.login_wrapper{box-shadow: 0 0 18px -7px #696969;width: 500px; padding: 35px 35px; margin:100px auto 0;background-color: #fff;}
+.login_wrapper h2{color: #484848; font-size: 30px; text-transform: uppercase; font-weight: 700; margin-bottom: 25px;}
+.login_wrapper .form-group .form-control{border-radius: 0px;}
+.login_wrapper .form-group input{border: none;border-bottom: solid 1px #cccccc; box-shadow: none;padding: 0 35px; height: 40px;}
+.login_wrapper .form-group{position: relative;margin-bottom: 25px;}
+.login_wrapper .form-group i{position: absolute; color: #a2a2a2; top: 11px; font-size: 18px; left: 5px;}
+.login_wrapper form button{width: 100%;background-color: #123586; font-size: 20px; color: #fff; border: none; text-transform: uppercase;box-shadow:  0 2px 0 #081d52;    padding: 9px 0 8px; margin-top: 15px;}
+.login_wrapper form button:hover{background-color: #133a95; color: #fff;transition: all 0.5s ease;}
+.login_wrapper form button:focus{background-color: #133a95; color: #fff;transition: all 0.5s ease;}
+.login_wrapper form button:active{background-color: #133a95; color: #fff;transition: all 0.5s ease;box-shadow:  0 2px 0 #081d52;}
+.login_wrapper form .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover{background-color: #133a95; color: #fff;}
+.forgot_section{text-align: center; padding-top: 35px;}
+.forgot a{font-size: 13px; color: #333; font-weight: 600;}
+.new_user{font-size: 14px; font-weight: 600; color: #333; padding-top: 12px;}
+.new_user a{font-size: 17px; font-weight: 600; color: #2f54ac; text-decoration: underline;}
+/*END LOGIN PAGE CSS*/

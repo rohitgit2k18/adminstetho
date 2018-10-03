@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health-Care || Admin</title> 
+    <link href="~/Content/Register/img/favicon.png" type="image/x-icon" rel="shortcut icon" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/css/sidebar-menu.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Primary vendor style -->
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/Content/summernote")
+    <!-- Add local styles, mostly for plugins css file -->
+    @*@if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}*@
+
+    <!-- Primary HOMER style -->
+    @Styles.Render("~/bundles/homer/css")
+    <style type="text/css">
+        .field-validation-error {
+            color: red;
+        }
+
+        .validation-summary-errors {
+            color: red;
+        }
+    </style>
+    @Scripts.Render("~/bundles/jquery/js")
+</head>
+
+<body>
+    <section class="main_wrapper">
+        <div class="sidebar_wrapper" style="width: 250px; position:absolute; height:100%;background-color: #222d32;">
+            <ul class="sidebar-menu">
+                <li class="sidebar-header">
+                    <div class="pro_img">
+                        <img src="@HealthCareSoft.Admin.Models.ApplicationSession.CurrentUser.ProfilePicture" alt="profile-image">
+                    </div>
+                    <div class="pro_info">
+                        <span>Welcome</span>
+                        <h3>@Session["username"]</h3>
+                    </div>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "DashBoard")">
+                        <i class="fa fa-tachometer"></i>
+                        <span>DashBoard</span>
+                        @*<i class="fa fa-angle-left pull-right"></i>*@
+                    </a>
+                    </li>
+                    <li>
+                    <a href="#">
+                        <i class="fa fa-users"></i>
+                        <span>Manage Users</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="@Url.Action("AddUsers", "Admin")"><i class="fa fa-circle-o"></i> Add User</a></li>
+                        <li><a href="@Url.Action("UserList", "Admin")"><i class="fa fa-circle-o"></i> Manage All Users</a></li>
+                        <li><a href="@Url.Action("DoctorList", "Admin")"><i class="fa fa-circle-o"></i> Manage Doctors</a></li>
+                        <li><a href="@Url.Action("PatientList", "Admin")"><i class="fa fa-circle-o"></i> Manage Patients</a></li>
+                        <li><a href="@Url.Action("SubAdminList", "Admin")"><i class="fa fa-circle-o"></i> Manage Sub Admin </a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-hospital-o"></i>
+                        <span>Hospitals</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="@Url.Action("HospitalList", "Hospital")"><i class="fa fa-circle-o"></i> Manage Hospitals </a></li>
+                        <li><a href="@Url.Action("HospitalDeptList", "Hospital")"><i class="fa fa-circle-o"></i> Hospital Departments </a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-building-o"></i>
+                        <span>Departments</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="@Url.Action("DeptList", "Department")"><i class="fa fa-circle-o"></i> Manage Departments </a></li>
+                        @*<li><a href="#"><i class="fa fa-circle-o"></i> Transaction Details </a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Commission</a></li>*@
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-laptop"></i>
+                        <span>Manage Static Informational</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="@Url.Action("GetEditor", "StaticInformation")"><i class="fa fa-circle-o"></i> Create Detail </a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Manage Contact</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-edit"></i> <span>Manage Enquiries</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="@Url.Action("EnquiryList", "Enqurie")"><i class="fa fa-circle-o"></i> View Enquiry</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-table"></i> <span>Manage Reports</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="sidebar-submenu">                      
+                        <li>
+                            <a href="#"><i class="fa fa-file"></i> User Registration Report</a>
+                            <ul class="sidebar-submenu">
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Patient</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o"></i> Doctors</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> Appointment Report</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> User Activity Reports</a></li>
+                    </ul>
+                </li>
+                @*<li>
+                        <a href="#">
+                            <i class="fa fa-calendar"></i> <span>Manage Reports</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Order Report</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i> User Report</a></li>
+                            <li><a href="#"><i class="fa fa-circle-o"></i> Sales Report</a></li>
+                        </ul>
+                    </li>*@
+            </ul>
+        </div>
+        <div class="content_wrapper">
+            <div class="color-line"/>
+            <div class="content_header">            
+                <div>
+                    <ul>
+                        @*<li><a href="#" data-toggle="tooltip" title="Notification"><i class="fa fa-bell-o"></i></a><span class="notify">3</span></li>*@
+                        <li><a href="@Url.Action("Logout", "CommonView")" data-toggle="tooltip" title="Logout"><i class="fa fa-sign-out"></i></a></li>
+                        <!--
+                            <li class="user_info">
+                                <a href="#">
+                                    <img src="images/img.jpg" alt="profile-image">
+                                    <span>User Name </span>
+                                    <i class=" fa fa-angle-down"></i>
+                                </a>
+                            </li>
+            -->
+                    </ul>
+                </div>
+                </div>
+            @RenderBody()
+            <div class="splash"> <div class="color-line"></div><div class="splash-title"><h1>Health-Care - Where Life saved</h1><p>A Complete Software for Doctors,Patients and Hospital management. </p><div class="spinner"> <div class="rect1"></div> <div class="rect2"></div> <div class="rect3"></div> <div class="rect4"></div> <div class="rect5"></div> </div> </div> </div>
+        </div>
+        <div class="modal fade" id="ModalData" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="color-line"></div>
+                    <div id="LoadModalData">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/sidebar-menu.js"></script>
+    <script>
+    $.sidebarMenu($('.sidebar-menu'))
+    </script>
+    <!-- Section for main scripts render -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+@Scripts.Render("~/bundles/moment/js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

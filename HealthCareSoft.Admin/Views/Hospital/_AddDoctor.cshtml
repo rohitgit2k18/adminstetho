@@ -1,0 +1,81 @@
+﻿@model HealthCareSoft.Repository.Models.HospitalDoctorEntity
+@{
+    ViewBag.Title = "Assign Doctor";
+}
+<style>
+    .required label {
+    }
+
+        .required label:after {
+            color: #e32;
+            content: ' *';
+            display: inline;
+        }
+</style>
+<script>
+        //this code goes in your partialview
+        $(function () {
+            //allow the validation framework to re-prase the DOM
+            jQuery.validator.unobtrusive.parse();
+
+            //or to give the parser some context, supply it with a selector
+            //jQuery validator will parse all child elements (deep) starting
+            //from the selector element supplied
+            jQuery.validator.unobtrusive.parse("#signupform");
+        });
+</script>
+<link href="/Content/chosen.css" rel="stylesheet" />
+<script src="/Scripts/chosen.jquery.js"></script>
+<script>
+        $(function () {
+            $('.chosen-select').chosen({ width: "280px;" });
+            $("#DocId").change(function () {
+                var docId = '';
+                $("#DocId option:selected").each(function () {
+                    var option = $(this);
+                    if (docId == '')
+                        docId = option.val();
+                    else
+                        docId = docId + ',' + option.val();
+                });
+                //$(model.departmentids).val(deptId);
+            });
+        });
+
+</script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "signupform" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Add Doctor </h4>
+        <small class="font-bold">Here You can Add Doctor to Hospital</small>
+    </div>
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group required">
+            @Html.LabelFor(model => model.DoctorId)
+            @*@Html.DropDownList("DepId", (MultiSelectList)ViewBag.DeptList, "------Select Dept----- ", new { @class = "form-control chosen-select", id = "DeptId", multiple = "multiple", @style = "width:500px;display:none;" })*@           
+            @Html.DropDownList("DocId", (MultiSelectList)ViewBag.DoctorList, "------Select Doctors----- ", new { @class = "form-control chosen-select", id = "DocId", multiple = "multiple", @style = "width:500px;display:none;" })
+            @Html.ValidationMessageFor(model => model.DoctorId)
+        </div>
+        <div class="form-group">
+            @Html.HiddenFor(model => model.HospitalId)
+            @Html.HiddenFor(model => model.HospitalId, new { @class = "form-control", autoComplete = "off", autofocus = "true",  })
+            @Html.HiddenFor(model => model.HospitalId)
+        </div>
+        <div class="form-group required">
+            @Html.LabelFor(model => model.DepartmentId)
+            @Html.DropDownListFor(model => model.DepartmentId, @ViewBag.DeptList as IEnumerable<SelectListItem>, "------Select Dept----- ", new { @class = "form-control" })          
+            @Html.ValidationMessageFor(model => model.DepartmentId)
+        </div>                  
+    </div>
+   
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save </button>
+        </div>
+}

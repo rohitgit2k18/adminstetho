@@ -1,0 +1,98 @@
+﻿@model HealthCareSoft.Repository.Models.HospitalEntity
+<style>
+    .required label {
+    }
+
+        .required label:after {
+            color: #e32;
+            content: ' *';
+            display: inline;
+        }
+</style>
+<script>
+        //this code goes in your partialview
+        $(function () {
+            //allow the validation framework to re-prase the DOM
+            jQuery.validator.unobtrusive.parse();
+
+            //or to give the parser some context, supply it with a selector
+            //jQuery validator will parse all child elements (deep) starting
+            //from the selector element supplied
+            jQuery.validator.unobtrusive.parse("#signupform");
+        });
+</script>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signupform" }))
+{
+    @*@Html.AntiForgeryToken()*@
+   
+
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Hospital </h4>
+        <small class="font-bold">Here You can Add Hospital</small>
+    </div>
+
+        <div class="modal-body">
+            @Html.ValidationSummary(true)
+            <div class="form-group required">
+                @Html.LabelFor(model => model.HospitalName)  
+                @Html.TextBoxFor(model => model.HospitalName, new { @class = "form-control", autoComplete="off", autofocus="true" })
+                @Html.ValidationMessageFor(model => model.HospitalName)
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(model => model.Address) 
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", autoComplete = "off" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Latitude)
+                @Html.TextBoxFor(model => model.Latitude, new { @class = "form-control", autoComplete = "off" })
+                @Html.ValidationMessageFor(model => model.Latitude)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Longitude)
+                @Html.TextBoxFor(model => model.Longitude, new { @class = "form-control", autoComplete = "off" })
+                @Html.ValidationMessageFor(model => model.Longitude)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsAcctive)   
+                @Html.CheckBoxFor(model => model.IsAcctive, new { })
+                @Html.ValidationMessageFor(model => model.IsAcctive)
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.ro)  
+                @Html.DropDownListFor(model => model.UserType, Enum.GetValues(typeof(Malae3ProSoft.BackEnd.Utility.UserRole)).Cast<Malae3ProSoft.BackEnd.Utility.UserRole>().Select(model => new SelectListItem { Text = model.ToString(), Value = model.ToString() }), new { @class = "form-control" })
+                @Html.HiddenFor(model=>model.Status, new { Value = "1" })
+                @Html.ValidationMessageFor(model => model.UserType)
+            </div>*@
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" id="SubmitButton" class="btn btn-primary">Save </button>
+        </div>
+        <script>
+    $(function () {
+        $("#SubmitButton").click(function () {
+            if (!$("#signupform").valid()) {
+                return false;
+            }
+        });
+    });
+        </script>
+}
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/homer/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+}

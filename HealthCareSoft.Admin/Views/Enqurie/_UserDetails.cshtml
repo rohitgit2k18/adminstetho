@@ -1,0 +1,89 @@
+﻿@model HealthCareSoft.Repository.Models.EnquiryEntity
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signupform" }))
+{
+    @Html.AntiForgeryToken()
+   
+
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Enquiry </h4>
+        <small class="font-bold">Here You can View the record.</small>
+    </div>
+
+        <div class="modal-body">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            <div>              
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Title)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.IsAnswered)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.IsAnswered)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Answer)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Answer)
+                    </dd>                                                    
+                </dl>
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.UserType)  
+                @Html.DropDownListFor(model => model.UserType, Enum.GetValues(typeof(Malae3ProSoft.BackEnd.Utility.UserRole)).Cast<Malae3ProSoft.BackEnd.Utility.UserRole>().Select(model => new SelectListItem { Text = model.ToString(), Value = model.ToString() }), new { @class = "form-control" })
+           </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status)
+                @Html.DropDownListFor(model => model.Status, Enum.GetValues(typeof(Malae3ProSoft.BackEnd.Utility.AccountStatus)).Cast<Malae3ProSoft.BackEnd.Utility.AccountStatus>().Select(model => new SelectListItem { Text = model.ToString(), Value = model.ToString() }), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UserType)
+            </div>*@
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            @*<button type="submit" class="btn btn-primary">Save changes</button>*@
+        </div>
+}
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/homer/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+}

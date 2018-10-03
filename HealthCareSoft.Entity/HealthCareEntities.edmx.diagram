@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="92c1d33cfbe2437a89e297fa2e483d06" Name="Diagram1">
+        <EntityTypeShape EntityType="HealthCareModel.Enqury" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="HealthCareModel.Department" Width="1.5" PointX="0.75" PointY="12.125" />
+        <EntityTypeShape EntityType="HealthCareModel.Hospital" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="HealthCareModel.HospitalDepartmentMapping" Width="1.5" PointX="3" PointY="2.375" />
+        <EntityTypeShape EntityType="HealthCareModel.HospitalDoctorMapping" Width="1.5" PointX="5.625" PointY="5.125" />
+        <EntityTypeShape EntityType="HealthCareModel.Token" Width="1.5" PointX="5.625" PointY="12.5" />
+        <EntityTypeShape EntityType="HealthCareModel.UserProfile" Width="1.5" PointX="3.375" PointY="7.125" />
+        <EntityTypeShape EntityType="HealthCareModel.UserRole" Width="1.5" PointX="1.125" PointY="9" />
+        <AssociationConnector Association="HealthCareModel.FK__HospitalD__Depar__3B75D760" />
+        <AssociationConnector Association="HealthCareModel.FK__Enquries__Create__4222D4EF" />
+        <AssociationConnector Association="HealthCareModel.FK__HospitalD__Hospi__3A81B327" />
+        <AssociationConnector Association="HealthCareModel.FK__HospitalD__Hospi__3F466844" />
+        <AssociationConnector Association="HealthCareModel.FK__HospitalD__Docto__3E52440B" />
+        <AssociationConnector Association="HealthCareModel.fk_user_id" />
+        <AssociationConnector Association="HealthCareModel.FK__UserProfi__RoleI__164452B1" />
+        <AssociationConnector Association="HealthCareModel.FK__HospitalD__Depar__52593CB8" />
+        <EntityTypeShape EntityType="HealthCareModel.Allergy" Width="1.5" PointX="5.625" PointY="30.5" />
+        <EntityTypeShape EntityType="HealthCareModel.Appointment" Width="1.5" PointX="5.625" PointY="0.75" />
+        <EntityTypeShape EntityType="HealthCareModel.AppointmentDetail" Width="1.5" PointX="7.875" PointY="14.75" />
+        <EntityTypeShape EntityType="HealthCareModel.BloodGroup" Width="1.5" PointX="1.125" PointY="6.375" />
+        <EntityTypeShape EntityType="HealthCareModel.Disease" Width="1.5" PointX="5.625" PointY="16.875" />
+        <EntityTypeShape EntityType="HealthCareModel.IntervalMaster" Width="1.5" PointX="6.375" PointY="34.125" />
+        <EntityTypeShape EntityType="HealthCareModel.Medicine" Width="1.5" PointX="5.625" PointY="23.875" />
+        <EntityTypeShape EntityType="HealthCareModel.Prescription" Width="1.5" PointX="8.625" PointY="10.375" />
+        <EntityTypeShape EntityType="HealthCareModel.PrescriptionAgainstPatient" Width="1.5" PointX="11.125" PointY="13.25" />
+        <EntityTypeShape EntityType="HealthCareModel.ReferedPatient" Width="1.5" PointX="5.625" PointY="20.375" />
+        <EntityTypeShape EntityType="HealthCareModel.Specialization" Width="1.5" PointX="1.125" PointY="16.875" />
+        <EntityTypeShape EntityType="HealthCareModel.Symptom" Width="1.5" PointX="5.625" PointY="27.25" />
+        <AssociationConnector Association="HealthCareModel.FK__Allergies__Creat__5FB337D6" />
+        <AssociationConnector Association="HealthCareModel.FK__Appointme__Aller__02FC7413" />
+        <AssociationConnector Association="HealthCareModel.FK__Appointme__Appoi__01142BA1" />
+        <AssociationConnector Association="HealthCareModel.FK__Appointme__Creat__5629CD9C" />
+        <AssociationConnector Association="HealthCareModel.FK__Appointme__Patie__5535A963" />
+        <AssociationConnector Association="HealthCareModel.FK__Appointme__Creat__04E4BC85" />
+        <AssociationConnector Association="HealthCareModel.FK__Appointme__Disea__02084FDA" />
+        <AssociationConnector Association="HealthCareModel.FK__Appointme__Sympt__03F0984C" />
+        <AssociationConnector Association="HealthCareModel.FK__Prescript__Appoi__07C12930" />
+        <AssociationConnector Association="HealthCareModel.FK__UserProfi__Blood__14270015" />
+        <AssociationConnector Association="HealthCareModel.FK__UserProfi__Blood__1EA48E88" />
+        <AssociationConnector Association="HealthCareModel.FK__Disease__Created__59FA5E80" />
+        <AssociationConnector Association="HealthCareModel.FK__Prescript__Inter__778AC167" />
+        <AssociationConnector Association="HealthCareModel.FK__Medicine__Create__628FA481" />
+        <AssociationConnector Association="HealthCareModel.FK__Prescript__Creat__787EE5A0" />
+        <AssociationConnector Association="HealthCareModel.FK__Prescript__Modif__76969D2E" />
+        <AssociationConnector Association="HealthCareModel.FK__Prescript__Patie__08B54D69" />
+        <AssociationConnector Association="HealthCareModel.FK__ReferedPa__Modif__0F624AF8" />
+        <AssociationConnector Association="HealthCareModel.FK__ReferedPa__Patie__10566F31" />
+        <AssociationConnector Association="HealthCareModel.FK__Specializ__creat__1CBC4616" />
+        <AssociationConnector Association="HealthCareModel.FK__UserProfi__Speci__1F98B2C1" />
+        <AssociationConnector Association="HealthCareModel.FK__Symptoms__Create__5CD6CB2B" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

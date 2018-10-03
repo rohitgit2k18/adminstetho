@@ -1,0 +1,4 @@
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\bin\Release\HealthCareSoft.ErrorLog.dll
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\bin\Release\HealthCareSoft.ErrorLog.pdb
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\obj\Release\HealthCareSoft.ErrorLog.dll
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\obj\Release\HealthCareSoft.ErrorLog.pdb

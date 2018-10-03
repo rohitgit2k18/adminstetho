@@ -1,0 +1,5 @@
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\bin\Debug\HealthCareSoft.ErrorLog.dll
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\bin\Debug\HealthCareSoft.ErrorLog.pdb
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\obj\Debug\HealthCareSoft.ErrorLog.csprojResolveAssemblyReference.cache
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\obj\Debug\HealthCareSoft.ErrorLog.dll
+D:\Rohit-Code\ClientProject\ASIF-Xamarin&Web\Asif-Admin&API\HealthCareSoft\HealthCareSoft.ErrorLog\obj\Debug\HealthCareSoft.ErrorLog.pdb

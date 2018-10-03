@@ -1,0 +1,124 @@
+﻿@model HealthCareSoft.Repository.Models.UserEntity
+   @{       
+       ViewBag.Title = "Edit";
+}
+<style>
+    .required label {
+    }
+
+        .required label:after {
+            color: #e32;
+            content: ' *';
+            display: inline;
+        }
+</style>
+<script>
+        //this code goes in your partialview
+        $(function () {
+            //allow the validation framework to re-prase the DOM
+            jQuery.validator.unobtrusive.parse();
+
+            //or to give the parser some context, supply it with a selector
+            //jQuery validator will parse all child elements (deep) starting
+            //from the selector element supplied
+            jQuery.validator.unobtrusive.parse("#signupform");
+        });
+</script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data", id = "signupform" }))
+{
+    @Html.AntiForgeryToken()
+   
+
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Edit User </h4>
+        <small class="font-bold">Here You can Edit Different Role Type User</small>
+    </div>
+
+        <div class="modal-body">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group required">
+                @Html.LabelFor(model => model.FirstName)  
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", autoComplete="off", autofocus="true" })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MiddelName)
+                @Html.TextBoxFor(model => model.MiddelName, new { @class = "form-control", autoComplete = "off", autofocus = "true" })
+                @Html.ValidationMessageFor(model => model.MiddelName)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", autoComplete = "off", autofocus = "true" })
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address)
+                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", autoComplete = "off", autofocus = "true" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(model => model.PhoneNo)
+                @Html.TextBoxFor(model => model.PhoneNo, new { @class = "form-control", type = "number", autoComplete = "off", autofocus = "true" })
+                @Html.ValidationMessageFor(model => model.PhoneNo)
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(model => model.PostalCode)
+                @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control", type = "number", autoComplete = "off", autofocus = "true" })
+                @Html.ValidationMessageFor(model => model.PostalCode)
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(model => model.Email) 
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autoComplete = "off" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(model => model.Password)   
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", autoComplete = "off" })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProfilePicture)
+                <input type="file" class="form-control" title="search image" id="myfile" name="file" >
+                @*@Html.LabelFor(model => model.ProfilePicture)
+                @Html.TextBoxFor(model => model.ProfilePicture, new { @class = "form-control img-picker" })              
+                @Html.ValidationMessageFor(model => model.ProfilePicture)*@
+
+            </div>
+            <div class="form-group required">
+                @Html.LabelFor(model => model.Gender)
+                @Html.DropDownListFor(model => model.Gender, new[] {
+                            new SelectListItem() {Text = "Male", Value = "Male"},
+                                 new SelectListItem() {Text = "Female", Value = "Female"}
+                                            }, "------Select Gender-----", new { @class = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.Gender)
+            </div>
+
+            <div class="form-group required">
+                @Html.LabelFor(model => model.RoleId)
+                @Html.DropDownListFor(model => model.RoleId, @ViewBag.RoleList as IEnumerable<SelectListItem>, "------Select User Role----- ", new { @class = "form-control" })
+                @*@Html.DropDownListFor(model => model.RoleId, (IEnumerable<SelectListItem>)ViewBag.RoleList, new { id = "ddlLocations", @class = "form-control" })*@
+                @*@Html.DropDownListFor(model => model.RoleId, new[] {
+                            new SelectListItem() {Text = "Doctor", Value = "1"},
+                                 new SelectListItem() {Text = "Admin", Value = "2"},
+                                  new SelectListItem() {Text = "Patient", Value = "3"},
+                                   new SelectListItem() {Text = "SubAdmin", Value = "4"}
+                                            }, "------Select User Role----- ", new { @class = "form-control" })*@
+
+                @Html.ValidationMessageFor(model => model.RoleId)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsActive)
+                @Html.CheckBoxFor(model => model.IsActive, new { })
+
+                @Html.ValidationMessageFor(model => model.IsActive)
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+       
+}

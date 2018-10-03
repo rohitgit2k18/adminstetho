@@ -1,0 +1,177 @@
+﻿@model HealthCareSoft.Repository.Models.UserEntity
+    @{
+        Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+        ViewBag.Title = "Add Users";
+    }
+
+<style>
+    .required label {
+    }
+
+        .required label:after {
+            color: #e32;
+            content: ' *';
+            display: inline;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#yourDropDownId').change(function () {
+            //alert("inside");
+
+            if ($("#yourDropDownId").prop('selectedIndex') == 1) {
+                $('#yourTextBoxId').show();
+                $('#yourTextBoxId').attr('disabled', 'disabled');
+            }
+            else {
+                $('#yourTextBoxId').hide();
+                $('#yourTextBoxId').removeAttr('disabled');
+            }
+        });
+    });
+
+</script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", id = "signupform" }))
+{
+    @Html.AntiForgeryToken()
+   
+
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Add Users </h4>
+        <small class="font-bold">Here You can Add Different Role Type User</small>
+    </div>
+
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                @Html.ValidationSummary(true)
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.FirstName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", autoComplete = "off", autofocus = "true", required="required"})
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MiddelName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.MiddelName, new { @class = "form-control", autoComplete = "off", autofocus = "true" })
+                        @Html.ValidationMessageFor(model => model.MiddelName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LastName, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", autoComplete = "off", autofocus = "true" })
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextAreaFor(model => model.Address, new { @class = "form-control", autoComplete = "off", autofocus = "true" })
+                        @Html.ValidationMessageFor(model => model.Address)
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.PhoneNo, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.PhoneNo, new { @class = "form-control", autoComplete = "off",type="number", autofocus = "true",required = "required" })
+                        @Html.ValidationMessageFor(model => model.PhoneNo)
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.PostalCode, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control", autoComplete = "off", type = "number", autofocus = "true", required = "required" })
+                        @Html.ValidationMessageFor(model => model.PostalCode)
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.Email, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autoComplete = "off" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.Password, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", autoComplete = "off" })
+                        @Html.ValidationMessageFor(model => model.Password)
+                    </div>
+                </div>
+
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.Gender, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.Gender, new[] {
+                            new SelectListItem() {Text = "Male", Value = "Male"},
+                                 new SelectListItem() {Text = "Female", Value = "Female"}
+                                            }, "--------Select Gender------- ", new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.Gender)
+                    </div>
+                </div>
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.RoleId, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(model => model.RoleId, @ViewBag.RoleList as IEnumerable<SelectListItem>, "------------Select User Role---------- ", new { @class = "form-control", id = "yourDropDownId" })
+                        @*@Html.DropDownListFor(model => model.RoleId, new[] {
+                    new SelectListItem() {Text = "Doctor", Value = "1"},
+                         new SelectListItem() {Text = "Admin", Value = "2"},
+                          new SelectListItem() {Text = "Patient", Value = "3"},
+                           new SelectListItem() {Text = "SubAdmin", Value = "4"}
+                                    }, "------------Select User Role---------- ", new { @class = "form-control",id="yourDropDownId" })*@
+
+                        @Html.ValidationMessageFor(model => model.RoleId)
+                    </div>
+                </div>
+                <div class="form-group required" id="yourTextBoxId" hidden>
+                    @Html.LabelFor(model => model.SpecializationId, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(model => model.SpecializationId, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SpecializationId)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProfilePicture, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        <input type="file" class="form-group" title="search image" id="file" name="file" onchange="show(this)" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsActive, new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(model => model.IsActive, new { })
+
+                        @Html.ValidationMessageFor(model => model.IsActive)
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+        <div class="modal-footer">
+            @*<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>*@
+            <button type="submit" class="btn btn-primary">Add User</button>
+        </div>
+}
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/homer/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+
+   
+   }

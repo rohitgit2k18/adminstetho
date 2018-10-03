@@ -1,0 +1,134 @@
+﻿@model HealthCareSoft.Repository.Models.UserEntity
+
+@{
+    Layout = null;
+    ViewBag.Title = "Register";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health-Care||Sign Up</title>    
+    <meta charset="utf-8">
+    <meta name="description" content="Traveling HTML5 Template" />
+    <meta name="author" content="Design Hooks" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700" rel="stylesheet">
+   @*// <link href="~/Content/Register/img/favicon.png" type="image/x-icon" rel="shortcut icon" />*@
+    <link href="~/Content/Register/css/screen.css" rel="stylesheet" />
+    <link href="~/Content/Register/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Register/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body id="login">
+    <div class="loginpage">
+        <div id="login-overlay" class="modal-dialog modal-md">
+            <!--<div class="modal-header">
+               <figure class="text-center"><img src="img/logohome.jpg" style="width: 351px;" alt="Rozenamah Logo" /></figure>
+            </div>-->
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <h1 class="login_title">Sign Up</h1>                         
+                           @Html.ValidationSummary(true)
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "form-signin", enctype = "multipart/form-data" , id = "signupform" }))
+                        {
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="text" class="form-control" placeholder="First Name" required autofocus>*@
+                                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "First Name", autocomplete = "off", required = "required", autofocus= "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.FirstName)
+                                </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="text" class="form-control" placeholder="Middle Name" required autofocus>*@
+                                    @Html.TextBoxFor(model => model.MiddelName, new { @class = "form-control", placeholder = "Middle Name", autocomplete = "off",  autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.MiddelName)
+                                  </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="text" class="form-control" placeholder="Last Name" required autofocus>*@
+                                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "Last Name", autocomplete = "off", autofocus = "autofocus" })
+                                    @Html.ValidationMessageFor(model => model.LastName)
+                                </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="email" class="form-control" placeholder="Email Address" required>*@
+                                    @Html.TextBoxFor(model=>model.Email, new { @class = "form-control",placeholder="Email",type="email",required="required" })
+                                    @Html.ValidationMessageFor(model => model.Email)
+                                </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="password" class="form-control" placeholder="Password" required>*@
+                                    @Html.TextBoxFor(model => model.Password, new { @class = "form-control", placeholder = "Password", type = "password", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.Password)
+                                </div>
+                                @*<div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    <input type="password" class="form-control" placeholder="Confirm Password" required>
+                                    @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password", type = "password", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                                </div>*@
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="text" class="form-control" placeholder="Address" required>*@
+                                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Address" })
+                                    @Html.ValidationMessageFor(model => model.Address)
+                                </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="number" class="form-control" placeholder="Postal code" required>*@
+                                    @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control", placeholder = "Postal Code" })
+                                    @Html.ValidationMessageFor(model => model.PostalCode)
+                                </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*<input type="number" class="form-control" placeholder="Phone Number" required>*@
+                                    @Html.TextBoxFor(model => model.PhoneNo, new { @class = "form-control", placeholder = "Phone Number",required="required" })
+                                    @Html.ValidationMessageFor(model => model.PhoneNo)
+                                </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*@Html.LabelFor(model => model.Gender)*@
+                                    @Html.DropDownListFor(model => model.Gender, new[] {
+                                     new SelectListItem() {Text = "Male", Value = "Male"},
+                                     new SelectListItem() {Text = "Female", Value = "Female"}
+                                            }, "------Select Gender----- ", new { @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.Gender)
+                                </div>
+                               
+                                
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                                    @*@Html.LabelFor(model => model.RoleId)*@
+                                    @Html.DropDownListFor(model => model.RoleId, new[] {
+                            new SelectListItem() {Text = "Doctor", Value = "1"},
+                                 new SelectListItem() {Text = "Admin", Value = "2"},
+                                  new SelectListItem() {Text = "Patient", Value = "3"},
+                                   new SelectListItem() {Text = "SubAdmin", Value = "4"}
+                                            }, "------Select User Role----- ", new { @class = "form-control" })
+
+                                    @Html.ValidationMessageFor(model => model.RoleId)
+                                </div>                               
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">                                  
+                                    @Html.TextBoxFor(model => model.IsActive, new { @class = "form-control", placeholder = "Is Active" })
+                                        @Html.ValidationMessageFor(model => model.IsActive)                                  
+                                </div>
+                                <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">                                
+                                    <input type="file" class="form-control" title="search profile image" placeholder = "Profile Picture" id="file" name="file" onchange="show(this)">
+                                    @*@Html.TextBoxFor(model => model.ProfilePicture, new { @class = "form-control", placeholder = "Profile Picture" })
+                                        @Html.ValidationMessageFor(model => model.ProfilePicture)*@
+                                </div>
+                               
+                                <input type="checkbox" id="test1" value="Terms-conditions" />
+                                <label for="test1" class="checkbox pull-left signcheck">Accept Terms & Conditions</label>
+                                <div style="clear: both;"></div>
+                                <div class="signup_button">
+                                    <button class="btn btn-lg btn-primary btn-block login-button" type="submit">
+                                        Sign Up
+                                    </button>
+                                </div>
+                                <p class="text-center nonmember"> Already a Member? <a href="#">Login</a></p>
+                        }                                                 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="~/Content/Register/js/jquery.js"></script>
+    <script src="~/Content/Register/js/bootstrap.min.js"></script>
+    <script src="~/Content/Register/js/functions.js"></script>
+</body>
+</html>

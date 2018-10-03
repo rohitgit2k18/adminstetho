@@ -1,0 +1,1836 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HealthCareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Allergies">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Discription" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientId" Type="bigint" Nullable="false" />
+          <Property Name="ReasonForVisit" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="AppointmentDate" Type="datetime" Nullable="false" />
+          <Property Name="AppointmentTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="QueueNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppointmentDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppointmentId" Type="bigint" Nullable="false" />
+          <Property Name="DiseaseId" Type="bigint" Nullable="false" />
+          <Property Name="AllergieId" Type="bigint" Nullable="false" />
+          <Property Name="SymptomId" Type="bigint" Nullable="false" />
+          <Property Name="ClinicalNotes" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="RevisitTime" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="BloodGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BloodGroup" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Disease">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Enquries">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="IsAnswered" Type="bit" Nullable="false" />
+          <Property Name="Answer" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Hospital">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="600" Nullable="false" />
+          <Property Name="Latitude" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="Longitude" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="IsAcctive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HospitalDepartmentMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HospitalId" Type="bigint" Nullable="false" />
+          <Property Name="DepartmentId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HospitalDoctorMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DoctorId" Type="bigint" Nullable="false" />
+          <Property Name="HospitalId" Type="bigint" Nullable="false" />
+          <Property Name="DepartmentId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IntervalMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Interval" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Power" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Prescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientId" Type="bigint" Nullable="false" />
+          <Property Name="Days" Type="int" Nullable="false" />
+          <Property Name="IntervalId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PrescriptionAgainstPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AppointmentDetailsId" Type="bigint" Nullable="false" />
+          <Property Name="PatientId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReferedPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientId" Type="bigint" Nullable="false" />
+          <Property Name="DoctorId" Type="bigint" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="600" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="300" />
+          <Property Name="createdBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Symptoms">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Discription" Type="nvarchar" MaxLength="1000" />
+          <Property Name="CreatedBy" Type="bigint" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="TokenCode" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="ExpiryDate" Type="datetime" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="MiddelName" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="PostalCode" Type="int" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="ProfilePicture" Type="nvarchar" MaxLength="200" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="bigint" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedBy" Type="bigint" />
+          <Property Name="ModifiedOn" Type="datetime" />
+          <Property Name="Otp" Type="bigint" />
+          <Property Name="UserPin" Type="int" />
+          <Property Name="BloodGroupId" Type="bigint" />
+          <Property Name="SpecializationId" Type="bigint" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Allergies__Creat__5FB337D6">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Allergies" Type="Self.Allergies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Allergies">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Aller__02FC7413">
+          <End Role="Allergies" Type="Self.Allergies" Multiplicity="1" />
+          <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Allergies">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetails">
+              <PropertyRef Name="AllergieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Appoi__01142BA1">
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="1" />
+          <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetails">
+              <PropertyRef Name="AppointmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Creat__04E4BC85">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetails">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Creat__5629CD9C">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Disea__02084FDA">
+          <End Role="Disease" Type="Self.Disease" Multiplicity="1" />
+          <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disease">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetails">
+              <PropertyRef Name="DiseaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Patie__5535A963">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Sympt__03F0984C">
+          <End Role="Symptoms" Type="Self.Symptoms" Multiplicity="1" />
+          <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Symptoms">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetails">
+              <PropertyRef Name="SymptomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disease__Created__59FA5E80">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Disease" Type="Self.Disease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Disease">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enquries__Create__4222D4EF">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="0..1" />
+          <End Role="Enquries" Type="Self.Enquries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Enquries">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Depar__3B75D760">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="HospitalDepartmentMapping" Type="Self.HospitalDepartmentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDepartmentMapping">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Depar__52593CB8">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="HospitalDoctorMapping" Type="Self.HospitalDoctorMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDoctorMapping">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Docto__5070F446">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="HospitalDoctorMapping" Type="Self.HospitalDoctorMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDoctorMapping">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Hospi__3A81B327">
+          <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+          <End Role="HospitalDepartmentMapping" Type="Self.HospitalDepartmentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDepartmentMapping">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Hospi__5165187F">
+          <End Role="Hospital" Type="Self.Hospital" Multiplicity="1" />
+          <End Role="HospitalDoctorMapping" Type="Self.HospitalDoctorMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDoctorMapping">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicine__Create__628FA481">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Medicine" Type="Self.Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Appoi__07C12930">
+          <End Role="AppointmentDetails" Type="Self.AppointmentDetails" Multiplicity="1" />
+          <End Role="PrescriptionAgainstPatient" Type="Self.PrescriptionAgainstPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppointmentDetails">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrescriptionAgainstPatient">
+              <PropertyRef Name="AppointmentDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Creat__787EE5A0">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Prescription" Type="Self.Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Inter__778AC167">
+          <End Role="IntervalMaster" Type="Self.IntervalMaster" Multiplicity="1" />
+          <End Role="Prescription" Type="Self.Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IntervalMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="IntervalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Modif__76969D2E">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Prescription" Type="Self.Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Patie__08B54D69">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="PrescriptionAgainstPatient" Type="Self.PrescriptionAgainstPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrescriptionAgainstPatient">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReferedPa__Modif__0F624AF8">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="ReferedPatient" Type="Self.ReferedPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReferedPatient">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReferedPa__Patie__10566F31">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="ReferedPatient" Type="Self.ReferedPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReferedPatient">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Specializ__creat__1CBC4616">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="createdBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Symptoms__Create__5CD6CB2B">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Symptoms" Type="Self.Symptoms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Symptoms">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Blood__14270015">
+          <End Role="BloodGroup" Type="Self.BloodGroup" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="BloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Blood__1EA48E88">
+          <End Role="BloodGroup" Type="Self.BloodGroup" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="BloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__RoleI__164452B1">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Speci__1F98B2C1">
+          <End Role="Specialization" Type="Self.Specialization" Multiplicity="0..1" />
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="SpecializationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_id">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+          <End Role="Token" Type="Self.Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthCareModelStoreContainer">
+          <EntitySet Name="Allergies" EntityType="Self.Allergies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppointmentDetails" EntityType="Self.AppointmentDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BloodGroup" EntityType="Self.BloodGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disease" EntityType="Self.Disease" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Enquries" EntityType="Self.Enquries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hospital" EntityType="Self.Hospital" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HospitalDepartmentMapping" EntityType="Self.HospitalDepartmentMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HospitalDoctorMapping" EntityType="Self.HospitalDoctorMapping" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IntervalMaster" EntityType="Self.IntervalMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Medicine" EntityType="Self.Medicine" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prescription" EntityType="Self.Prescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrescriptionAgainstPatient" EntityType="Self.PrescriptionAgainstPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReferedPatient" EntityType="Self.ReferedPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialization" EntityType="Self.Specialization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Symptoms" EntityType="Self.Symptoms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Token" EntityType="Self.Token" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Allergies__Creat__5FB337D6" Association="Self.FK__Allergies__Creat__5FB337D6">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Allergies" EntitySet="Allergies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Aller__02FC7413" Association="Self.FK__Appointme__Aller__02FC7413">
+            <End Role="Allergies" EntitySet="Allergies" />
+            <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Appoi__01142BA1" Association="Self.FK__Appointme__Appoi__01142BA1">
+            <End Role="Appointment" EntitySet="Appointment" />
+            <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Creat__04E4BC85" Association="Self.FK__Appointme__Creat__04E4BC85">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Creat__5629CD9C" Association="Self.FK__Appointme__Creat__5629CD9C">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Disea__02084FDA" Association="Self.FK__Appointme__Disea__02084FDA">
+            <End Role="Disease" EntitySet="Disease" />
+            <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Patie__5535A963" Association="Self.FK__Appointme__Patie__5535A963">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Appointment" EntitySet="Appointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Sympt__03F0984C" Association="Self.FK__Appointme__Sympt__03F0984C">
+            <End Role="Symptoms" EntitySet="Symptoms" />
+            <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disease__Created__59FA5E80" Association="Self.FK__Disease__Created__59FA5E80">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Disease" EntitySet="Disease" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enquries__Create__4222D4EF" Association="Self.FK__Enquries__Create__4222D4EF">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Enquries" EntitySet="Enquries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Depar__3B75D760" Association="Self.FK__HospitalD__Depar__3B75D760">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="HospitalDepartmentMapping" EntitySet="HospitalDepartmentMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Depar__52593CB8" Association="Self.FK__HospitalD__Depar__52593CB8">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="HospitalDoctorMapping" EntitySet="HospitalDoctorMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Docto__5070F446" Association="Self.FK__HospitalD__Docto__5070F446">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="HospitalDoctorMapping" EntitySet="HospitalDoctorMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Hospi__3A81B327" Association="Self.FK__HospitalD__Hospi__3A81B327">
+            <End Role="Hospital" EntitySet="Hospital" />
+            <End Role="HospitalDepartmentMapping" EntitySet="HospitalDepartmentMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Hospi__5165187F" Association="Self.FK__HospitalD__Hospi__5165187F">
+            <End Role="Hospital" EntitySet="Hospital" />
+            <End Role="HospitalDoctorMapping" EntitySet="HospitalDoctorMapping" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__Create__628FA481" Association="Self.FK__Medicine__Create__628FA481">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Medicine" EntitySet="Medicine" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Appoi__07C12930" Association="Self.FK__Prescript__Appoi__07C12930">
+            <End Role="AppointmentDetails" EntitySet="AppointmentDetails" />
+            <End Role="PrescriptionAgainstPatient" EntitySet="PrescriptionAgainstPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Creat__787EE5A0" Association="Self.FK__Prescript__Creat__787EE5A0">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Prescription" EntitySet="Prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Inter__778AC167" Association="Self.FK__Prescript__Inter__778AC167">
+            <End Role="IntervalMaster" EntitySet="IntervalMaster" />
+            <End Role="Prescription" EntitySet="Prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Modif__76969D2E" Association="Self.FK__Prescript__Modif__76969D2E">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Prescription" EntitySet="Prescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Patie__08B54D69" Association="Self.FK__Prescript__Patie__08B54D69">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="PrescriptionAgainstPatient" EntitySet="PrescriptionAgainstPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReferedPa__Modif__0F624AF8" Association="Self.FK__ReferedPa__Modif__0F624AF8">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="ReferedPatient" EntitySet="ReferedPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReferedPa__Patie__10566F31" Association="Self.FK__ReferedPa__Patie__10566F31">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="ReferedPatient" EntitySet="ReferedPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specializ__creat__1CBC4616" Association="Self.FK__Specializ__creat__1CBC4616">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Specialization" EntitySet="Specialization" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Symptoms__Create__5CD6CB2B" Association="Self.FK__Symptoms__Create__5CD6CB2B">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Symptoms" EntitySet="Symptoms" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Blood__14270015" Association="Self.FK__UserProfi__Blood__14270015">
+            <End Role="BloodGroup" EntitySet="BloodGroup" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Blood__1EA48E88" Association="Self.FK__UserProfi__Blood__1EA48E88">
+            <End Role="BloodGroup" EntitySet="BloodGroup" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__RoleI__164452B1" Association="Self.FK__UserProfi__RoleI__164452B1">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Speci__1F98B2C1" Association="Self.FK__UserProfi__Speci__1F98B2C1">
+            <End Role="Specialization" EntitySet="Specialization" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_id" Association="Self.fk_user_id">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Token" EntitySet="Token" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HealthCareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HealthCareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Enquries" EntityType="HealthCareModel.Enqury" />
+          <EntitySet Name="Departments" EntityType="HealthCareModel.Department" />
+          <EntitySet Name="Hospitals" EntityType="HealthCareModel.Hospital" />
+          <EntitySet Name="HospitalDepartmentMappings" EntityType="HealthCareModel.HospitalDepartmentMapping" />
+          <EntitySet Name="HospitalDoctorMappings" EntityType="HealthCareModel.HospitalDoctorMapping" />
+          <EntitySet Name="Tokens" EntityType="HealthCareModel.Token" />
+          <EntitySet Name="UserProfiles" EntityType="HealthCareModel.UserProfile" />
+          <EntitySet Name="UserRoles" EntityType="HealthCareModel.UserRole" />
+          <AssociationSet Name="FK__HospitalD__Depar__3B75D760" Association="HealthCareModel.FK__HospitalD__Depar__3B75D760">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="HospitalDepartmentMapping" EntitySet="HospitalDepartmentMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Enquries__Create__4222D4EF" Association="HealthCareModel.FK__Enquries__Create__4222D4EF">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Enqury" EntitySet="Enquries" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Hospi__3A81B327" Association="HealthCareModel.FK__HospitalD__Hospi__3A81B327">
+            <End Role="Hospital" EntitySet="Hospitals" />
+            <End Role="HospitalDepartmentMapping" EntitySet="HospitalDepartmentMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Hospi__3F466844" Association="HealthCareModel.FK__HospitalD__Hospi__3F466844">
+            <End Role="Hospital" EntitySet="Hospitals" />
+            <End Role="HospitalDoctorMapping" EntitySet="HospitalDoctorMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Docto__3E52440B" Association="HealthCareModel.FK__HospitalD__Docto__3E52440B">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="HospitalDoctorMapping" EntitySet="HospitalDoctorMappings" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_id" Association="HealthCareModel.fk_user_id">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Token" EntitySet="Tokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__RoleI__164452B1" Association="HealthCareModel.FK__UserProfi__RoleI__164452B1">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HospitalD__Depar__52593CB8" Association="HealthCareModel.FK__HospitalD__Depar__52593CB8">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="HospitalDoctorMapping" EntitySet="HospitalDoctorMappings" />
+          </AssociationSet>
+          <EntitySet Name="Allergies" EntityType="HealthCareModel.Allergy" />
+          <EntitySet Name="Appointments" EntityType="HealthCareModel.Appointment" />
+          <EntitySet Name="AppointmentDetails" EntityType="HealthCareModel.AppointmentDetail" />
+          <EntitySet Name="BloodGroups" EntityType="HealthCareModel.BloodGroup" />
+          <EntitySet Name="Diseases" EntityType="HealthCareModel.Disease" />
+          <EntitySet Name="IntervalMasters" EntityType="HealthCareModel.IntervalMaster" />
+          <EntitySet Name="Medicines" EntityType="HealthCareModel.Medicine" />
+          <EntitySet Name="Prescriptions" EntityType="HealthCareModel.Prescription" />
+          <EntitySet Name="PrescriptionAgainstPatients" EntityType="HealthCareModel.PrescriptionAgainstPatient" />
+          <EntitySet Name="ReferedPatients" EntityType="HealthCareModel.ReferedPatient" />
+          <EntitySet Name="Specializations" EntityType="HealthCareModel.Specialization" />
+          <EntitySet Name="Symptoms" EntityType="HealthCareModel.Symptom" />
+          <AssociationSet Name="FK__Allergies__Creat__5FB337D6" Association="HealthCareModel.FK__Allergies__Creat__5FB337D6">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Allergy" EntitySet="Allergies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Aller__02FC7413" Association="HealthCareModel.FK__Appointme__Aller__02FC7413">
+            <End Role="Allergy" EntitySet="Allergies" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Appoi__01142BA1" Association="HealthCareModel.FK__Appointme__Appoi__01142BA1">
+            <End Role="Appointment" EntitySet="Appointments" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Creat__5629CD9C" Association="HealthCareModel.FK__Appointme__Creat__5629CD9C">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Patie__5535A963" Association="HealthCareModel.FK__Appointme__Patie__5535A963">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Creat__04E4BC85" Association="HealthCareModel.FK__Appointme__Creat__04E4BC85">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Disea__02084FDA" Association="HealthCareModel.FK__Appointme__Disea__02084FDA">
+            <End Role="Disease" EntitySet="Diseases" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Appointme__Sympt__03F0984C" Association="HealthCareModel.FK__Appointme__Sympt__03F0984C">
+            <End Role="Symptom" EntitySet="Symptoms" />
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Appoi__07C12930" Association="HealthCareModel.FK__Prescript__Appoi__07C12930">
+            <End Role="AppointmentDetail" EntitySet="AppointmentDetails" />
+            <End Role="PrescriptionAgainstPatient" EntitySet="PrescriptionAgainstPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Blood__14270015" Association="HealthCareModel.FK__UserProfi__Blood__14270015">
+            <End Role="BloodGroup" EntitySet="BloodGroups" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Blood__1EA48E88" Association="HealthCareModel.FK__UserProfi__Blood__1EA48E88">
+            <End Role="BloodGroup" EntitySet="BloodGroups" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disease__Created__59FA5E80" Association="HealthCareModel.FK__Disease__Created__59FA5E80">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Disease" EntitySet="Diseases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Inter__778AC167" Association="HealthCareModel.FK__Prescript__Inter__778AC167">
+            <End Role="IntervalMaster" EntitySet="IntervalMasters" />
+            <End Role="Prescription" EntitySet="Prescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Medicine__Create__628FA481" Association="HealthCareModel.FK__Medicine__Create__628FA481">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Medicine" EntitySet="Medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Creat__787EE5A0" Association="HealthCareModel.FK__Prescript__Creat__787EE5A0">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Prescription" EntitySet="Prescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Modif__76969D2E" Association="HealthCareModel.FK__Prescript__Modif__76969D2E">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Prescription" EntitySet="Prescriptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Prescript__Patie__08B54D69" Association="HealthCareModel.FK__Prescript__Patie__08B54D69">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="PrescriptionAgainstPatient" EntitySet="PrescriptionAgainstPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReferedPa__Modif__0F624AF8" Association="HealthCareModel.FK__ReferedPa__Modif__0F624AF8">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ReferedPatient" EntitySet="ReferedPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReferedPa__Patie__10566F31" Association="HealthCareModel.FK__ReferedPa__Patie__10566F31">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ReferedPatient" EntitySet="ReferedPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Specializ__creat__1CBC4616" Association="HealthCareModel.FK__Specializ__creat__1CBC4616">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Specialization" EntitySet="Specializations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserProfi__Speci__1F98B2C1" Association="HealthCareModel.FK__UserProfi__Speci__1F98B2C1">
+            <End Role="Specialization" EntitySet="Specializations" />
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Symptoms__Create__5CD6CB2B" Association="HealthCareModel.FK__Symptoms__Create__5CD6CB2B">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="Symptom" EntitySet="Symptoms" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Enqury">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsAnswered" Type="Boolean" Nullable="false" />
+          <Property Name="Answer" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Enquries__Create__4222D4EF" FromRole="Enqury" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="HospitalDepartmentMappings" Relationship="HealthCareModel.FK__HospitalD__Depar__3B75D760" FromRole="Department" ToRole="HospitalDepartmentMapping" />
+          <NavigationProperty Name="HospitalDoctorMappings" Relationship="HealthCareModel.FK__HospitalD__Depar__52593CB8" FromRole="Department" ToRole="HospitalDoctorMapping" />
+        </EntityType>
+        <EntityType Name="Hospital">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsAcctive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="HospitalDepartmentMappings" Relationship="HealthCareModel.FK__HospitalD__Hospi__3A81B327" FromRole="Hospital" ToRole="HospitalDepartmentMapping" />
+          <NavigationProperty Name="HospitalDoctorMappings" Relationship="HealthCareModel.FK__HospitalD__Hospi__3F466844" FromRole="Hospital" ToRole="HospitalDoctorMapping" />
+        </EntityType>
+        <EntityType Name="HospitalDepartmentMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HospitalId" Type="Int64" Nullable="false" />
+          <Property Name="DepartmentId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="HealthCareModel.FK__HospitalD__Depar__3B75D760" FromRole="HospitalDepartmentMapping" ToRole="Department" />
+          <NavigationProperty Name="Hospital" Relationship="HealthCareModel.FK__HospitalD__Hospi__3A81B327" FromRole="HospitalDepartmentMapping" ToRole="Hospital" />
+        </EntityType>
+        <EntityType Name="HospitalDoctorMapping">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DoctorId" Type="Int64" Nullable="false" />
+          <Property Name="HospitalId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Hospital" Relationship="HealthCareModel.FK__HospitalD__Hospi__3F466844" FromRole="HospitalDoctorMapping" ToRole="Hospital" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__HospitalD__Docto__3E52440B" FromRole="HospitalDoctorMapping" ToRole="UserProfile" />
+          <Property Name="DepartmentId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="HealthCareModel.FK__HospitalD__Depar__52593CB8" FromRole="HospitalDoctorMapping" ToRole="Department" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="TokenCode" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.fk_user_id" FromRole="Token" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="MiddelName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PostalCode" Type="Int32" />
+          <Property Name="PhoneNo" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="Otp" Type="Int64" />
+          <NavigationProperty Name="Enquries" Relationship="HealthCareModel.FK__Enquries__Create__4222D4EF" FromRole="UserProfile" ToRole="Enqury" />
+          <NavigationProperty Name="HospitalDoctorMappings" Relationship="HealthCareModel.FK__HospitalD__Docto__3E52440B" FromRole="UserProfile" ToRole="HospitalDoctorMapping" />
+          <NavigationProperty Name="Tokens" Relationship="HealthCareModel.fk_user_id" FromRole="UserProfile" ToRole="Token" />
+          <NavigationProperty Name="UserRole" Relationship="HealthCareModel.FK__UserProfi__RoleI__164452B1" FromRole="UserProfile" ToRole="UserRole" />
+          <Property Name="UserPin" Type="Int32" />
+          <Property Name="BloodGroupId" Type="Int64" />
+          <Property Name="SpecializationId" Type="Int64" />
+          <NavigationProperty Name="Allergies" Relationship="HealthCareModel.FK__Allergies__Creat__5FB337D6" FromRole="UserProfile" ToRole="Allergy" />
+          <NavigationProperty Name="Appointments" Relationship="HealthCareModel.FK__Appointme__Creat__5629CD9C" FromRole="UserProfile" ToRole="Appointment" />
+          <NavigationProperty Name="Appointments1" Relationship="HealthCareModel.FK__Appointme__Patie__5535A963" FromRole="UserProfile" ToRole="Appointment" />
+          <NavigationProperty Name="AppointmentDetails" Relationship="HealthCareModel.FK__Appointme__Creat__04E4BC85" FromRole="UserProfile" ToRole="AppointmentDetail" />
+          <NavigationProperty Name="BloodGroup" Relationship="HealthCareModel.FK__UserProfi__Blood__14270015" FromRole="UserProfile" ToRole="BloodGroup" />
+          <NavigationProperty Name="BloodGroup1" Relationship="HealthCareModel.FK__UserProfi__Blood__1EA48E88" FromRole="UserProfile" ToRole="BloodGroup" />
+          <NavigationProperty Name="Diseases" Relationship="HealthCareModel.FK__Disease__Created__59FA5E80" FromRole="UserProfile" ToRole="Disease" />
+          <NavigationProperty Name="Medicines" Relationship="HealthCareModel.FK__Medicine__Create__628FA481" FromRole="UserProfile" ToRole="Medicine" />
+          <NavigationProperty Name="Prescriptions" Relationship="HealthCareModel.FK__Prescript__Creat__787EE5A0" FromRole="UserProfile" ToRole="Prescription" />
+          <NavigationProperty Name="Prescriptions1" Relationship="HealthCareModel.FK__Prescript__Modif__76969D2E" FromRole="UserProfile" ToRole="Prescription" />
+          <NavigationProperty Name="PrescriptionAgainstPatients" Relationship="HealthCareModel.FK__Prescript__Patie__08B54D69" FromRole="UserProfile" ToRole="PrescriptionAgainstPatient" />
+          <NavigationProperty Name="ReferedPatients" Relationship="HealthCareModel.FK__ReferedPa__Modif__0F624AF8" FromRole="UserProfile" ToRole="ReferedPatient" />
+          <NavigationProperty Name="ReferedPatients1" Relationship="HealthCareModel.FK__ReferedPa__Patie__10566F31" FromRole="UserProfile" ToRole="ReferedPatient" />
+          <NavigationProperty Name="Specializations" Relationship="HealthCareModel.FK__Specializ__creat__1CBC4616" FromRole="UserProfile" ToRole="Specialization" />
+          <NavigationProperty Name="Specialization" Relationship="HealthCareModel.FK__UserProfi__Speci__1F98B2C1" FromRole="UserProfile" ToRole="Specialization" />
+          <NavigationProperty Name="Symptoms" Relationship="HealthCareModel.FK__Symptoms__Create__5CD6CB2B" FromRole="UserProfile" ToRole="Symptom" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="HealthCareModel.FK__UserProfi__RoleI__164452B1" FromRole="UserRole" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK__HospitalD__Depar__3B75D760">
+          <End Type="HealthCareModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="HealthCareModel.HospitalDepartmentMapping" Role="HospitalDepartmentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDepartmentMapping">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Enquries__Create__4222D4EF">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+          <End Type="HealthCareModel.Enqury" Role="Enqury" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Enqury">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Hospi__3A81B327">
+          <End Type="HealthCareModel.Hospital" Role="Hospital" Multiplicity="1" />
+          <End Type="HealthCareModel.HospitalDepartmentMapping" Role="HospitalDepartmentMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDepartmentMapping">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Hospi__3F466844">
+          <End Type="HealthCareModel.Hospital" Role="Hospital" Multiplicity="1" />
+          <End Type="HealthCareModel.HospitalDoctorMapping" Role="HospitalDoctorMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hospital">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDoctorMapping">
+              <PropertyRef Name="HospitalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Docto__3E52440B">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.HospitalDoctorMapping" Role="HospitalDoctorMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDoctorMapping">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_id">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Token" Role="Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__RoleI__164452B1">
+          <End Type="HealthCareModel.UserRole" Role="UserRole" Multiplicity="1" />
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HospitalD__Depar__52593CB8">
+          <End Type="HealthCareModel.Department" Role="Department" Multiplicity="1" />
+          <End Type="HealthCareModel.HospitalDoctorMapping" Role="HospitalDoctorMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HospitalDoctorMapping">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Allergy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Discription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Allergies__Creat__5FB337D6" FromRole="Allergy" ToRole="UserProfile" />
+          <NavigationProperty Name="AppointmentDetails" Relationship="HealthCareModel.FK__Appointme__Aller__02FC7413" FromRole="Allergy" ToRole="AppointmentDetail" />
+        </EntityType>
+        <EntityType Name="Appointment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientId" Type="Int64" Nullable="false" />
+          <Property Name="ReasonForVisit" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="AppointmentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AppointmentTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="QueueNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AppointmentDetails" Relationship="HealthCareModel.FK__Appointme__Appoi__01142BA1" FromRole="Appointment" ToRole="AppointmentDetail" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Appointme__Creat__5629CD9C" FromRole="Appointment" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile1" Relationship="HealthCareModel.FK__Appointme__Patie__5535A963" FromRole="Appointment" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="AppointmentDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppointmentId" Type="Int64" Nullable="false" />
+          <Property Name="DiseaseId" Type="Int64" Nullable="false" />
+          <Property Name="AllergieId" Type="Int64" Nullable="false" />
+          <Property Name="SymptomId" Type="Int64" Nullable="false" />
+          <Property Name="ClinicalNotes" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="RevisitTime" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Allergy" Relationship="HealthCareModel.FK__Appointme__Aller__02FC7413" FromRole="AppointmentDetail" ToRole="Allergy" />
+          <NavigationProperty Name="Appointment" Relationship="HealthCareModel.FK__Appointme__Appoi__01142BA1" FromRole="AppointmentDetail" ToRole="Appointment" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Appointme__Creat__04E4BC85" FromRole="AppointmentDetail" ToRole="UserProfile" />
+          <NavigationProperty Name="Disease" Relationship="HealthCareModel.FK__Appointme__Disea__02084FDA" FromRole="AppointmentDetail" ToRole="Disease" />
+          <NavigationProperty Name="Symptom" Relationship="HealthCareModel.FK__Appointme__Sympt__03F0984C" FromRole="AppointmentDetail" ToRole="Symptom" />
+          <NavigationProperty Name="PrescriptionAgainstPatients" Relationship="HealthCareModel.FK__Prescript__Appoi__07C12930" FromRole="AppointmentDetail" ToRole="PrescriptionAgainstPatient" />
+        </EntityType>
+        <EntityType Name="BloodGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BloodGroup1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserProfiles" Relationship="HealthCareModel.FK__UserProfi__Blood__14270015" FromRole="BloodGroup" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfiles1" Relationship="HealthCareModel.FK__UserProfi__Blood__1EA48E88" FromRole="BloodGroup" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Disease">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AppointmentDetails" Relationship="HealthCareModel.FK__Appointme__Disea__02084FDA" FromRole="Disease" ToRole="AppointmentDetail" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Disease__Created__59FA5E80" FromRole="Disease" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="IntervalMaster">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Interval" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Prescriptions" Relationship="HealthCareModel.FK__Prescript__Inter__778AC167" FromRole="IntervalMaster" ToRole="Prescription" />
+        </EntityType>
+        <EntityType Name="Medicine">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Power" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Medicine__Create__628FA481" FromRole="Medicine" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Prescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientId" Type="Int64" Nullable="false" />
+          <Property Name="Days" Type="Int32" Nullable="false" />
+          <Property Name="IntervalId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="IntervalMaster" Relationship="HealthCareModel.FK__Prescript__Inter__778AC167" FromRole="Prescription" ToRole="IntervalMaster" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Prescript__Creat__787EE5A0" FromRole="Prescription" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile1" Relationship="HealthCareModel.FK__Prescript__Modif__76969D2E" FromRole="Prescription" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="PrescriptionAgainstPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AppointmentDetailsId" Type="Int64" Nullable="false" />
+          <Property Name="PatientId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="AppointmentDetail" Relationship="HealthCareModel.FK__Prescript__Appoi__07C12930" FromRole="PrescriptionAgainstPatient" ToRole="AppointmentDetail" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Prescript__Patie__08B54D69" FromRole="PrescriptionAgainstPatient" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="ReferedPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientId" Type="Int64" Nullable="false" />
+          <Property Name="DoctorId" Type="Int64" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__ReferedPa__Modif__0F624AF8" FromRole="ReferedPatient" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfile1" Relationship="HealthCareModel.FK__ReferedPa__Patie__10566F31" FromRole="ReferedPatient" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Specialization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="ShortName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="createdBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Specializ__creat__1CBC4616" FromRole="Specialization" ToRole="UserProfile" />
+          <NavigationProperty Name="UserProfiles" Relationship="HealthCareModel.FK__UserProfi__Speci__1F98B2C1" FromRole="Specialization" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Symptom">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Discription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int64" />
+          <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AppointmentDetails" Relationship="HealthCareModel.FK__Appointme__Sympt__03F0984C" FromRole="Symptom" ToRole="AppointmentDetail" />
+          <NavigationProperty Name="UserProfile" Relationship="HealthCareModel.FK__Symptoms__Create__5CD6CB2B" FromRole="Symptom" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK__Allergies__Creat__5FB337D6">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Allergy" Role="Allergy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Allergy">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Aller__02FC7413">
+          <End Type="HealthCareModel.Allergy" Role="Allergy" Multiplicity="1" />
+          <End Type="HealthCareModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Allergy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="AllergieId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Appoi__01142BA1">
+          <End Type="HealthCareModel.Appointment" Role="Appointment" Multiplicity="1" />
+          <End Type="HealthCareModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Appointment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="AppointmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Creat__5629CD9C">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Patie__5535A963">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Creat__04E4BC85">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Disea__02084FDA">
+          <End Type="HealthCareModel.Disease" Role="Disease" Multiplicity="1" />
+          <End Type="HealthCareModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Disease">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="DiseaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Appointme__Sympt__03F0984C">
+          <End Type="HealthCareModel.Symptom" Role="Symptom" Multiplicity="1" />
+          <End Type="HealthCareModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Symptom">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AppointmentDetail">
+              <PropertyRef Name="SymptomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Appoi__07C12930">
+          <End Type="HealthCareModel.AppointmentDetail" Role="AppointmentDetail" Multiplicity="1" />
+          <End Type="HealthCareModel.PrescriptionAgainstPatient" Role="PrescriptionAgainstPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppointmentDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrescriptionAgainstPatient">
+              <PropertyRef Name="AppointmentDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Blood__14270015">
+          <End Type="HealthCareModel.BloodGroup" Role="BloodGroup" Multiplicity="0..1" />
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="BloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Blood__1EA48E88">
+          <End Type="HealthCareModel.BloodGroup" Role="BloodGroup" Multiplicity="0..1" />
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BloodGroup">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="BloodGroupId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disease__Created__59FA5E80">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Disease" Role="Disease" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Disease">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Inter__778AC167">
+          <End Type="HealthCareModel.IntervalMaster" Role="IntervalMaster" Multiplicity="1" />
+          <End Type="HealthCareModel.Prescription" Role="Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IntervalMaster">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="IntervalId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Medicine__Create__628FA481">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Medicine" Role="Medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Medicine">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Creat__787EE5A0">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Prescription" Role="Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Modif__76969D2E">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Prescription" Role="Prescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Prescription">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Prescript__Patie__08B54D69">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.PrescriptionAgainstPatient" Role="PrescriptionAgainstPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PrescriptionAgainstPatient">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReferedPa__Modif__0F624AF8">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.ReferedPatient" Role="ReferedPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReferedPatient">
+              <PropertyRef Name="DoctorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReferedPa__Patie__10566F31">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.ReferedPatient" Role="ReferedPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ReferedPatient">
+              <PropertyRef Name="PatientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Specializ__creat__1CBC4616">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Specialization" Role="Specialization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Specialization">
+              <PropertyRef Name="createdBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserProfi__Speci__1F98B2C1">
+          <End Type="HealthCareModel.Specialization" Role="Specialization" Multiplicity="0..1" />
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Specialization">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="SpecializationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Symptoms__Create__5CD6CB2B">
+          <End Type="HealthCareModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="HealthCareModel.Symptom" Role="Symptom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Symptom">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HealthCareModelStoreContainer" CdmEntityContainer="HealthCareEntities">
+          <EntitySetMapping Name="Enquries">
+            <EntityTypeMapping TypeName="HealthCareModel.Enqury">
+              <MappingFragment StoreEntitySet="Enquries">
+                <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="IsAnswered" ColumnName="IsAnswered" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="HealthCareModel.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hospitals">
+            <EntityTypeMapping TypeName="HealthCareModel.Hospital">
+              <MappingFragment StoreEntitySet="Hospital">
+                <ScalarProperty Name="IsAcctive" ColumnName="IsAcctive" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HospitalDepartmentMappings">
+            <EntityTypeMapping TypeName="HealthCareModel.HospitalDepartmentMapping">
+              <MappingFragment StoreEntitySet="HospitalDepartmentMapping">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HospitalDoctorMappings">
+            <EntityTypeMapping TypeName="HealthCareModel.HospitalDoctorMapping">
+              <MappingFragment StoreEntitySet="HospitalDoctorMapping">
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="HospitalId" ColumnName="HospitalId" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="HealthCareModel.Token">
+              <MappingFragment StoreEntitySet="Token">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="TokenCode" ColumnName="TokenCode" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="HealthCareModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="SpecializationId" ColumnName="SpecializationId" />
+                <ScalarProperty Name="BloodGroupId" ColumnName="BloodGroupId" />
+                <ScalarProperty Name="UserPin" ColumnName="UserPin" />
+                <ScalarProperty Name="Otp" ColumnName="Otp" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddelName" ColumnName="MiddelName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="HealthCareModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Allergies">
+            <EntityTypeMapping TypeName="HealthCareModel.Allergy">
+              <MappingFragment StoreEntitySet="Allergies">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Appointments">
+            <EntityTypeMapping TypeName="HealthCareModel.Appointment">
+              <MappingFragment StoreEntitySet="Appointment">
+                <ScalarProperty Name="QueueNumber" ColumnName="QueueNumber" />
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AppointmentTime" ColumnName="AppointmentTime" />
+                <ScalarProperty Name="AppointmentDate" ColumnName="AppointmentDate" />
+                <ScalarProperty Name="ReasonForVisit" ColumnName="ReasonForVisit" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppointmentDetails">
+            <EntityTypeMapping TypeName="HealthCareModel.AppointmentDetail">
+              <MappingFragment StoreEntitySet="AppointmentDetails">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RevisitTime" ColumnName="RevisitTime" />
+                <ScalarProperty Name="ClinicalNotes" ColumnName="ClinicalNotes" />
+                <ScalarProperty Name="SymptomId" ColumnName="SymptomId" />
+                <ScalarProperty Name="AllergieId" ColumnName="AllergieId" />
+                <ScalarProperty Name="DiseaseId" ColumnName="DiseaseId" />
+                <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BloodGroups">
+            <EntityTypeMapping TypeName="HealthCareModel.BloodGroup">
+              <MappingFragment StoreEntitySet="BloodGroup">
+                <ScalarProperty Name="BloodGroup1" ColumnName="BloodGroup" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Diseases">
+            <EntityTypeMapping TypeName="HealthCareModel.Disease">
+              <MappingFragment StoreEntitySet="Disease">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IntervalMasters">
+            <EntityTypeMapping TypeName="HealthCareModel.IntervalMaster">
+              <MappingFragment StoreEntitySet="IntervalMaster">
+                <ScalarProperty Name="Interval" ColumnName="Interval" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Medicines">
+            <EntityTypeMapping TypeName="HealthCareModel.Medicine">
+              <MappingFragment StoreEntitySet="Medicine">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Power" ColumnName="Power" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prescriptions">
+            <EntityTypeMapping TypeName="HealthCareModel.Prescription">
+              <MappingFragment StoreEntitySet="Prescription">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IntervalId" ColumnName="IntervalId" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrescriptionAgainstPatients">
+            <EntityTypeMapping TypeName="HealthCareModel.PrescriptionAgainstPatient">
+              <MappingFragment StoreEntitySet="PrescriptionAgainstPatient">
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="AppointmentDetailsId" ColumnName="AppointmentDetailsId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReferedPatients">
+            <EntityTypeMapping TypeName="HealthCareModel.ReferedPatient">
+              <MappingFragment StoreEntitySet="ReferedPatient">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DoctorId" ColumnName="DoctorId" />
+                <ScalarProperty Name="PatientId" ColumnName="PatientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specializations">
+            <EntityTypeMapping TypeName="HealthCareModel.Specialization">
+              <MappingFragment StoreEntitySet="Specialization">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="createdBy" ColumnName="createdBy" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Symptoms">
+            <EntityTypeMapping TypeName="HealthCareModel.Symptom">
+              <MappingFragment StoreEntitySet="Symptoms">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

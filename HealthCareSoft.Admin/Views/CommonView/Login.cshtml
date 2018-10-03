@@ -1,0 +1,87 @@
+﻿@model HealthCareSoft.Repository.Models.UserEntity
+
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+<style type="text/css">
+    .field-validation-error {
+        color: red;
+    }
+
+    .validation-summary-errors {
+        color: red;
+    }
+
+    .checkD{margin: -11px 0 0;
+    margin-left: -89px;
+
+    }
+   .checkD input[type=checkbox] {
+    transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    
+}
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health-Care || Login</title>
+    <link href="~/Content/Register/img/favicon.png" type="image/x-icon" rel="shortcut icon" />
+    <link rel="stylesheet" href="~/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/css/sidebar-menu.css">
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link href="/../Content/css/SwitchToggle.css" rel="stylesheet" />
+
+    
+
+</head>
+<body style="background-color: #fafafa;">
+    <div class="login_wrapper">
+        <h2>Sign In</h2>
+       @Html.ValidationSummary(true)
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signinform" }))
+    {
+            <div class="form-group">
+                @*<input type="email" class="form-control" id="email" placeholder="Email ID">*@
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "User Name",  required = "required" })
+                @Html.ValidationMessageFor(model => model.Email)
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+            </div>
+            <div class="form-group">
+                @*<input type="password" class="form-control" id="pass" placeholder="Password">*@
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", id = "pass",type="password", placeholder = "Password", autocomplete = "off", required = "required", PasswordChar = '*' })
+                @Html.ValidationMessageFor(model => model.Password)
+                <i class="fa fa-key" aria-hidden="true"></i>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Rememberme, new { @class = "col-md-6 control-label"})
+               <div class="col-md-6 checkD">
+                    @Html.CheckBoxFor(model => model.Rememberme, new {id = "remember", type = "checkbox", title = "Remember Me?"})
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+            </div>
+            <button type="submit" class="btn btn-default">sign in</button>
+    }
+        <div class="forgot_section">
+            <p class="forgot"><a href="@Url.Action("Forgotpassword", "CommonView")">Forgot Password?</a></p>
+            @*<p class="new_user"> New User? <a href="@Url.Action("Register", "CommonView")" data-toggle="modal" data-target="#hire_emp" data-dismiss="modal">Sign Up Here </a></p>*@
+        </div>
+    </div>
+    <script src="~/Content/js/jquery.js"></script>
+    <script src="~/Content/js/sidebar-menu.js"></script>
+    <script>
+    $.sidebarMenu($('.sidebar-menu'))
+    </script>
+    <script src="/../Content/js/SwitchToggle.js"></script>
+    @*<script type="text/javascript">
+        var pass='@Model.Password';
+        $('#pass').val(pass);
+
+    </script>*@
+</body>
+</html>

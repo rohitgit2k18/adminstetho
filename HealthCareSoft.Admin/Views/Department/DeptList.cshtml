@@ -1,0 +1,170 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+    ViewBag.Title = "Department List";
+}
+<div class="content animate-panel">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel hgreen">
+                <div class="panel-heading hbuilt">
+                    <div class="pull-right">
+                        <b data-modal="" type="sm" href="../Department/CreateDepartment">
+                            <span class="btn btn-default btn-xs" title="Add User">
+                                <i class="fa fa-plus-square" aria-hidden="true"></i> <label for="Add New">Add New</label>
+                            </span>
+                        </b>
+                    </div>
+                    @if (TempData["delete"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissable">
+                            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                            @TempData["delete"]
+                        </div>
+                    }
+                    <label for="items">Department List</label>
+                </div>
+
+                <div class="panel-body @Html.PageClass()">
+                    <table id="example" class="display table table-bordered" width="100%">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Department Name</th>                               
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="dataTables_empty">Loading data from server</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/homer/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            $("#example").DataTable({
+                "fnDrawCallback": function () {
+                    $("#splash").hide();
+                },
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "searching": true,
+                "filter": false, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "aLengthMenu": [10, 50, 100],
+                "ajax": {
+                    "url": '/Department/LoadDept',
+                    "type": "Post",
+                    "datatype": "json",
+                    "beforeSend": function () {
+                        $("#splash").show();
+                    }
+
+                },
+                "columns": [
+           { "data": "Id", "name": "Id", "autoWidth": true },
+                        { "data": "Name", "name": "Name  ", "autoWidth": true },                       
+
+    {
+        "data": null,
+        orderable: false,
+        render: function (data, type, row) {
+            var result='';
+            console.log(data.IsActive);
+            //alert(data.IsActive);
+            if (data.IsActive == false)
+                result = '<a href="/Department/DepartmentStatus/' + data.Id + '" data-modal=""><span class="label label-danger">InActive</span></a>';
+            else
+                result = '<a href="/Department/DepartmentStatus/' + data.Id + '" data-modal=""><span class="label label-success">Active</span></a>';
+                return result;
+        },
+        "autoWidth": true
+    },
+
+             {
+                 data: null,
+                 orderable: false,
+                 render: function (data, type, row) {
+                     //alert("i am here");
+                     return '<a onclick="javascript:loadmodel(' + data.Id + ');" data-modal=""><i class="fa fa-edit" aria-hidden="true"></i></a> <a href="/Department/DeleteDepartment/' + data.Id + '"><span class="fa fa-trash-o"></span></a>';
+                 },
+             }
+                ],
+                tableTools: {
+                    "aButtons": [
+                        "copy",
+                        "csv",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": "Your custom message would go here."
+                        }
+
+                    ]
+                }
+            });
+        });
+        function loadmodel(a)
+        {
+            $('#LoadModalData').load("../Department/EditDepartment/" + a, function () {
+                $('#ModalData').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm1(this);
+            });
+        }
+        function bindForm1(dialog) {
+            $('form', dialog).submit(function () {
+               // alert("here");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: new FormData(this),
+                    success: function (data) {
+                        if (data.success) {
+                            $('#ModalData').modal('hide');
+                            location.reload();
+
+                        } else {
+                            console.log("loading");
+                            $('#LoadModalData').html(data);
+                            bindForm();
+                            console.log("done");
+
+                        }
+                    }
+                });
+                return false;
+            });
+        }
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿@model HealthCareSoft.Repository.Models.DepartmentEntity
+<style>
+    .required label {
+    }
+
+        .required label:after {
+            color: #e32;
+            content: ' *';
+            display: inline;
+        }
+</style>
+<script>
+        //this code goes in your partialview
+        $(function () {
+            //allow the validation framework to re-prase the DOM
+            jQuery.validator.unobtrusive.parse();
+
+            //or to give the parser some context, supply it with a selector
+            //jQuery validator will parse all child elements (deep) starting
+            //from the selector element supplied
+            jQuery.validator.unobtrusive.parse("#signupform");
+        });
+</script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "signupform" }))
+{
+    @Html.AntiForgeryToken()
+   
+
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Edit Department</h4>
+        <small class="font-bold">Here You can Edit Department</small>
+    </div>
+
+        <div class="modal-body">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group required">
+                @Html.LabelFor(model => model.Name)  
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", autoComplete="off", autofocus="true" })
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsActive)
+                @Html.CheckBoxFor(model => model.IsActive, new { })
+                @Html.ValidationMessageFor(model => model.IsActive)
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.Email) 
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", autoComplete = "off" })
+                @Html.ValidationMessageFor(model => model.Email)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password)   
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", autoComplete = "off" })
+                @Html.ValidationMessageFor(model => model.Password)
+            </div>*@
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.RoleId)  
+                @Html.DropDownListFor(model => model.RoleId, Enum.GetValues(typeof(Malae3ProSoft.BackEnd.Utility.UserRole)).Cast<Malae3ProSoft.BackEnd.Utility.UserRole>().Select(model => new SelectListItem { Text = model.ToString(), Value = model.ToString() }), new { @class = "form-control" })
+               @Html.HiddenFor(model => model.Status, new { Value = "1" })
+                @Html.ValidationMessageFor(model => model.UserType)
+            </div>*@
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+}

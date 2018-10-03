@@ -1,0 +1,99 @@
+﻿
+@model HealthCareSoft.Repository.Models.HospitalDeptEntity
+@{
+    ViewBag.Title = "Assign Dept";
+}
+@*<script src="~/Scripts/jquery-2.2.0.min.js"></script>*@
+<link href="/Content/chosen.css" rel="stylesheet" />
+<script src="/Scripts/chosen.jquery.js"></script>
+<style>
+    .required label {
+    }
+
+        .required label:after {
+            color: #e32;
+            content: ' *';
+            display: inline;
+        }
+</style>
+<script>
+        //this code goes in your partialview
+        $(function () {
+            //allow the validation framework to re-prase the DOM
+            jQuery.validator.unobtrusive.parse();
+
+            //or to give the parser some context, supply it with a selector
+            //jQuery validator will parse all child elements (deep) starting
+            //from the selector element supplied
+            jQuery.validator.unobtrusive.parse("#signupform");
+        });
+</script>
+<style>
+    .required label {
+    }
+
+        .required label:after {
+            color: #e32;
+            content: ' *';
+            display: inline;
+        }
+</style>
+<script>
+        //this code goes in your partialview
+        $(function () {
+            //allow the validation framework to re-prase the DOM
+            jQuery.validator.unobtrusive.parse();
+
+            //or to give the parser some context, supply it with a selector
+            //jQuery validator will parse all child elements (deep) starting
+            //from the selector element supplied
+            jQuery.validator.unobtrusive.parse("#signupform");
+        });
+</script>
+<script>
+        $(function () {           
+            $('.chosen-select').chosen({ width: "280px;" });           
+            $("#DeptId").change(function () {              
+                var deptId = '';
+                $("#DeptId option:selected").each(function () {
+                    var option = $(this);
+                    if (deptId == '')
+                        deptId = option.val();
+                    else
+                        deptId = deptId + ',' + option.val();
+                });
+                //$(model.departmentids).val(deptId);
+            });
+        });
+
+    </script>
+@using (Html.BeginForm(null, null, FormMethod.Post, new {  id = "signupform" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="modal-header text-center">
+        <h4 class="modal-title">Add Department </h4>
+        <small class="font-bold">Here You can Add Department</small>
+    </div>
+
+    <div class="modal-body">
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)     
+        <div class="form-group ">
+            @Html.HiddenFor(model => model.HospitalId)
+            @Html.HiddenFor(model => model.Id, new { @class = "form-control", autoComplete = "off", autofocus = "true", })
+            @Html.HiddenFor(model => model.Id)
+        </div>
+        <div class="form-group required">
+            @Html.LabelFor(model => model.DepartmentId)           
+            @Html.DropDownList("DepId", (MultiSelectList)ViewBag.DeptList, "------Select Dept----- ", new { @class = "form-control chosen-select" ,id= "DeptId", multiple = "multiple", @style = "width:500px;display:none;" })                   
+            @Html.ValidationMessageFor(model => model.DepartmentId)
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save </button>
+    </div>
+}

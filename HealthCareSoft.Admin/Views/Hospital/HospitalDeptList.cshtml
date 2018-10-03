@@ -1,0 +1,242 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutBlank.cshtml";
+    ViewBag.Title = "Hospital Dept List";
+}
+<div class="content animate-panel">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="hpanel hgreen">
+                <div class="panel-heading hbuilt">
+                    <div class="pull-right">
+                        @*<b data-modal="" type="sm" href="../Hospital/CreateHossspital">
+                            <span class="btn btn-default btn-xs" title="Add User">
+                                <i class="fa fa-plus-square" aria-hidden="true"></i> <label for="Add New">Add New</label>
+                            </span>
+                        </b>*@
+                    </div>
+                    @if (TempData["delete"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissable">
+                            <button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+                            @TempData["delete"]
+                        </div>
+                    }
+                    <label for="items">Hospital List</label>
+                </div>
+
+                <div class="panel-body @Html.PageClass()">
+                    <table id="example" class="display table table-bordered" width="100%">
+                        <thead>
+                            <tr>
+                                <th>HospitalId</th>
+                                <th>DeptId</th>
+                                <th>HospitalName</th>
+                                <th>DePartmentName</th>                              
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" class="dataTables_empty">Loading data from server</td>
+                            </tr>
+                        </tbody>
+                    </table>                    
+@*<table id="table" class="table">
+                        <thead>
+                            <tr>
+                                <th>HospitalId</th>
+                                <th>DeptId</th>
+                                <th>HospitalName</th>
+                                <th>DePartmentName</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>HospitalId</td>
+                                <td>DeptId</td>
+                                <td>HospitalName</td>
+                                <td>DePartmentName</td>
+                                <td>Action</td>
+                            </tr>
+                        </tbody>
+                    </table>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles {
+    @Styles.Render("~/bundles/datatables/css")
+    @Styles.Render("~/bundles/font-awesome/css")
+    @Styles.Render("~/bundles/animate/css")
+    @Styles.Render("~/bundles/bootstrap/css")
+    @Styles.Render("~/bundles/peicon7stroke/css")
+    @Styles.Render("~/bundles/homer/css")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/datatables/js")
+    @Scripts.Render("~/bundles/datatablesBootstrap/js")
+    @Scripts.Render("~/bundles/datatablesPlugins/js")
+    @Scripts.Render("~/bundles/bootstrap/js")
+    @Scripts.Render("~/bundles/homer/js")
+
+    <script type="text/javascript">
+
+        $(function () {
+
+            //$("#table").DataTable();
+
+            $("#example").DataTable({
+                "fnDrawCallback": function () {
+                    $("#splash").hide();
+                },
+                "processing": true, // for show progress bar
+                "serverSide": true, // for process server side
+                "searching": true,
+                "filter": false, // this is for disable filter (search box)
+                "orderMulti": false, // for disable multiple column at once
+                "aLengthMenu": [10, 50, 100],
+                "ajax": {
+                    "url": '/Hospital/LoadHospitalDepartment',
+                    "type": "Post",
+                    "datatype": "json",
+                    "beforeSend": function () {
+                        $("#splash").show();
+                    }
+
+                },
+                "columns": [
+                     { "data": "HospitalId", "name": "HospitalId", "autoWidth": true,visible: false  },
+                     { "data": "DeptId", "name": "DeptId", "autoWidth": true, visible: false },
+                        { "data": "HospitalName", "name": "HospitalName  ", "autoWidth": true },
+                        { "data": "DeptName", "name": "DeptName  ", "autoWidth": true },
+
+    //{
+    //    "data": null,
+    //    orderable: false,
+    //    render: function (data, type, row) {
+    //        var result='';
+    //        console.log(data.IsAcctive);
+    //        //alert(data.IsActive);
+    //        if (data.IsAcctive == false)
+    //            result = '<a href="/Hospital/HospitalssStatus/' + data.Id + '" data-modal=""><span class="label label-danger">InActive</span></a>';
+    //        else
+    //            result = '<a href="/Hospital/HospitalSsstatus/' + data.Id + '" data-modal=""><span class="label label-success">Active</span></a>';
+    //            return result;
+    //    },
+    //    "autoWidth": true
+    //},
+
+             {
+                 data: null,
+                 orderable: false,
+                 render: function (data, type, row) {
+                     //alert("i am here");
+                     return '<a title="Edit"  data-modal=""><i class="fa fa-edit" aria-hidden="true"></i></a> <a title="delete" href="#"><span class="fa fa-trash-o"></span></a>' 
+                            },
+             }
+                ],
+                tableTools: {
+                    "aButtons": [
+                        "copy",
+                        "csv",
+                        "xls",
+                        {
+                            "sExtends": "pdf",
+                            "sPdfOrientation": "landscape",
+                            "sPdfMessage": "Your custom message would go here."
+                        }
+
+                   ]
+               }
+           });
+       });
+        function loadmodel(a)
+        {
+            $('#LoadModalData').load("../Hospital/EditHospital/" + a, function () {
+                $('#ModalData').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm1(this);
+            });
+        }
+        function bindForm1(dialog) {
+            $('form', dialog).submit(function () {
+               // alert("here");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: new FormData(this),
+                    success: function (data) {
+                        if (data.success) {
+                            $('#ModalData').modal('hide');
+                            location.reload();
+
+                        } else {
+                            console.log("loading");
+                            $('#LoadModalData').html(data);
+                            bindForm();
+                            console.log("done");
+
+                        }
+                    }
+                });
+                return false;
+            });
+        }
+
+        function AddDoctortoHospital(a) {
+
+            $('#LoadModalData').load("../Hospital/AddDoctortoHospital/" + a, function () {
+                $('#ModalData').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm2(this);
+            });
+        }
+
+        function AddDepttoHospital(a) {
+            $('#LoadModalData').load("../Hospital/AddDepttoHospital/" + a, function () {
+                $('#ModalData').modal({
+                    backdrop: 'static',
+                    keyboard: false
+                }, 'show');
+                bindForm2(this);
+            });
+        }
+        function bindForm2(dialog) {
+            $('form', dialog).submit(function () {
+              //  alert("here");
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: new FormData(this),
+                    success: function (data) {
+                        if (data.success) {
+                            $('#ModalData').modal('hide');
+                            location.reload();
+
+                        } else {
+                            console.log("loading");
+                            $('#LoadModalData').html(data);
+                            bindForm();
+                            console.log("done");
+
+                        }
+                    }
+                });
+                return false;
+            });
+        }
+    </script>
+}
